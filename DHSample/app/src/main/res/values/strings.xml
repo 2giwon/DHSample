@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">DelieveryHeroSample</string>
+    <string name="textInput_hint_insert_user_id">GitHub user search</string>
+    <string name="error_load_fail">불러오기 실패</string>
+    <string name="error_like_user_load_fail">좋아요 유저 불러오기 실패</string>
+    <string name="error_rate_limit">api 사용 횟수를 초과했습니다.</string>
+    <string name="retry">Retry</string>
+    <string name="refresh">Refresh</string>
+    <string name="followed_by">Followed by:</string>
+</resources>
