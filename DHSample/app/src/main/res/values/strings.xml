@@ -7,4 +7,6 @@
     <string name="retry">Retry</string>
     <string name="refresh">Refresh</string>
     <string name="followed_by">Followed by:</string>
+    <string name="start">start</string>
+    <string name="error_access_token_load_fail">access Token Load Fail</string>
 </resources>

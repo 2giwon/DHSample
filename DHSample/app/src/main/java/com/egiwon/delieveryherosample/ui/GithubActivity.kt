@@ -4,13 +4,13 @@ import android.os.Bundle
 import androidx.viewpager2.widget.ViewPager2
 import com.egiwon.delieveryherosample.R
 import com.egiwon.delieveryherosample.base.BaseActivity
-import com.egiwon.delieveryherosample.databinding.ActivityMainBinding
+import com.egiwon.delieveryherosample.databinding.ActivityGithubBinding
 import com.egiwon.delieveryherosample.ext.setupWithViewPager2
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class MainActivity : BaseActivity<ActivityMainBinding, GithubSharedViewModel>(
-        R.layout.activity_main
+class GithubActivity : BaseActivity<ActivityGithubBinding, GithubSharedViewModel>(
+        R.layout.activity_github
 ) {
 
     override val viewModel: GithubSharedViewModel by viewModel()
@@ -23,7 +23,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, GithubSharedViewModel>(
     private fun initViewPager() {
         bind {
             vm = viewModel
-            val adapter = PagerAdapter(this@MainActivity)
+            val adapter = PagerAdapter(this@GithubActivity)
             vpSearch.adapter = adapter
             vpSearch.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {

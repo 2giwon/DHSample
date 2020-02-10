@@ -1,11 +1,13 @@
 package com.egiwon.delieveryherosample.data.source
 
+import com.egiwon.delieveryherosample.data.AccessToken
 import com.egiwon.delieveryherosample.data.User
 import com.egiwon.delieveryherosample.data.UserLikeResponse
 import com.egiwon.delieveryherosample.data.source.local.GithubLocalDataSource
 import com.egiwon.delieveryherosample.data.source.remote.GithubRemoteDataSource
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 
 class GithubRepositoryImpl(
@@ -39,5 +41,8 @@ class GithubRepositoryImpl(
 
     override fun searchLikeUsers(query: String): Flowable<List<User>> =
             githubLocalDataSource.searchLikeUsers(query)
+
+    override fun requestAccessToken(code: String): Single<AccessToken> =
+            githubRemoteDataSource.requestAccessToken(code)
 
 }

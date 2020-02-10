@@ -1,11 +1,14 @@
 package com.egiwon.delieveryherosample.di
 
 import com.egiwon.delieveryherosample.BuildConfig
+import com.egiwon.delieveryherosample.data.AccessTokenProvider
+import com.egiwon.delieveryherosample.data.source.remote.AuthApiService
 import com.egiwon.delieveryherosample.data.source.remote.GithubSearchLikeService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.parameter.parametersOf
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.CallAdapter
 import retrofit2.Converter
@@ -23,6 +26,16 @@ val networkModule = module {
             }
         }
     }
+
+    factory { (chain: Interceptor.Chain) ->
+        chain.proceed(
+                chain.request()
+                        .newBuilder()
+                        .addHeader("Authorization", "token " + AccessTokenProvider.token)
+                        .build()
+        )
+    }
+
     single<CallAdapter.Factory> {
         RxJava2CallAdapterFactory.create()
     }
@@ -33,19 +46,32 @@ val networkModule = module {
     factory {
         OkHttpClient.Builder()
                 .addInterceptor(get<Interceptor>())
+                .addInterceptor { get { parametersOf(it) } }
                 .build()
     }
 
-    single<Retrofit> {
+    single<Retrofit>(named("api")) {
         Retrofit.Builder()
                 .baseUrl("http://api.github.com/")
                 .client(get<OkHttpClient>())
                 .addCallAdapterFactory(get())
                 .addConverterFactory(get())
                 .build()
-
     }
-    single {
-        get<Retrofit>().create(GithubSearchLikeService::class.java)
+
+    single<Retrofit>(named("auth")) {
+        Retrofit.Builder()
+                .baseUrl("https://github.com")
+                .addCallAdapterFactory(get())
+                .addConverterFactory(get())
+                .build()
+    }
+
+    single(named("api")) {
+        get<Retrofit>(named("api")).create(GithubSearchLikeService::class.java)
+    }
+
+    single(named("auth")) {
+        get<Retrofit>(named("auth")).create(AuthApiService::class.java)
     }
 }
