@@ -7,15 +7,15 @@ import com.egiwon.delieveryherosample.data.User
 @Entity(tableName = "users")
 data class UserEntity(
     @PrimaryKey
-    var id: String,
+    val id: String,
 
-    var avatarUrl: String,
+    val avatarUrl: String,
 
-    var name: String,
+    val name: String,
 
-    var score: Double,
+    val score: Double,
 
-    var like: Boolean = false
+    val like: Boolean = false
 )
 
 fun UserEntity.mapperToUser(): User =
