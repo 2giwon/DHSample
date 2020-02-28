@@ -3,10 +3,10 @@ package com.egiwon.delieveryherosample.ui.like
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
-import com.egiwon.delieveryherosample.ui.GithubSharedViewModel
 import com.egiwon.delieveryherosample.R
 import com.egiwon.delieveryherosample.base.BaseFragment
 import com.egiwon.delieveryherosample.databinding.FgGithubUserLikeBinding
+import com.egiwon.delieveryherosample.ui.GithubSharedViewModel
 import com.egiwon.delieveryherosample.ui.Tab
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -25,11 +25,10 @@ class UserLikeFragment : BaseFragment<FgGithubUserLikeBinding, GithubSharedViewM
             rvUserLike.adapter = UserLikeAdapter(viewModel)
             rvUserLike.setHasFixedSize(true)
         }
-
-        setObserve()
     }
 
-    private fun setObserve() {
+    override fun addObserve() {
+        super.addObserve()
         viewModel.removedUser.observe(viewLifecycleOwner, Observer {
             (binding.rvUserLike.adapter as? UserLikeAdapter)?.run {
                 onRemoveUnlikeUser(it)

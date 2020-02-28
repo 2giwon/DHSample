@@ -24,7 +24,7 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
         addObserve()
     }
 
-    private fun addObserve() {
+    protected open fun addObserve() {
         viewModel.errorTextResId.observe(
                 this, Observer { showToast(it) }
         )

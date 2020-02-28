@@ -25,12 +25,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
         if (!code.isNullOrEmpty()) {
             viewModel.requestAccessToken(code)
         }
-
-        setObserves()
-
     }
 
-    private fun setObserves() {
+    override fun addObserve() {
+        super.addObserve()
         viewModel.authUriLiveData.observe(this, Observer {
             ContextCompat.startActivity(this, Intent(Intent.ACTION_VIEW, it), null)
         })
@@ -40,5 +38,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
                 startActivity(Intent(this, GithubActivity::class.java))
             }
         })
+
     }
+
 }

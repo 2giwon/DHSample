@@ -3,10 +3,10 @@ package com.egiwon.delieveryherosample.ui.search
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
-import com.egiwon.delieveryherosample.ui.GithubSharedViewModel
 import com.egiwon.delieveryherosample.R
 import com.egiwon.delieveryherosample.base.BaseFragment
 import com.egiwon.delieveryherosample.databinding.FgSearchGithubUserBinding
+import com.egiwon.delieveryherosample.ui.GithubSharedViewModel
 import com.egiwon.delieveryherosample.ui.Tab
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -25,11 +25,10 @@ class SearchUserFragment : BaseFragment<FgSearchGithubUserBinding, GithubSharedV
             rvSearchResultUsers.adapter = SearchUserAdapter(viewModel)
             rvSearchResultUsers.setHasFixedSize(true)
         }
-
-        setObserve()
     }
 
-    private fun setObserve() {
+    override fun addObserve() {
+        super.addObserve()
         viewModel.unLikeUser.observe(viewLifecycleOwner, Observer { user ->
             (binding.rvSearchResultUsers.adapter as? SearchUserAdapter)?.run {
                 onUnLikeUser(user)
