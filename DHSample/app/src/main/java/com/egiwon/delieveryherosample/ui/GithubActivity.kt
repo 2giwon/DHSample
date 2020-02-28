@@ -10,7 +10,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class GithubActivity : BaseActivity<ActivityGithubBinding, GithubSharedViewModel>(
-        R.layout.activity_github
+    R.layout.activity_github
 ) {
 
     override val viewModel: GithubSharedViewModel by viewModel()

@@ -8,7 +8,7 @@ import retrofit2.http.Query
 interface GithubSearchLikeService {
     @GET("/search/users")
     fun getUserInfo(
-            @Query("q")
-            userID: String
+        @Query("q")
+        userID: String
     ): Flowable<UserLikeResponse>
 }

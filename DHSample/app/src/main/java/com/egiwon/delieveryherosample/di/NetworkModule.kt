@@ -29,10 +29,10 @@ val networkModule = module {
 
     factory { (chain: Interceptor.Chain) ->
         chain.proceed(
-                chain.request()
-                        .newBuilder()
-                        .addHeader("Authorization", "token " + AccessTokenProvider.token)
-                        .build()
+            chain.request()
+                .newBuilder()
+                .addHeader("Authorization", "token " + AccessTokenProvider.token)
+                .build()
         )
     }
 
@@ -45,26 +45,26 @@ val networkModule = module {
 
     factory {
         OkHttpClient.Builder()
-                .addInterceptor(get<Interceptor>())
-                .addInterceptor { get { parametersOf(it) } }
-                .build()
+            .addInterceptor(get<Interceptor>())
+            .addInterceptor { get { parametersOf(it) } }
+            .build()
     }
 
     single<Retrofit>(named("api")) {
         Retrofit.Builder()
-                .baseUrl("http://api.github.com/")
-                .client(get<OkHttpClient>())
-                .addCallAdapterFactory(get())
-                .addConverterFactory(get())
-                .build()
+            .baseUrl("http://api.github.com/")
+            .client(get<OkHttpClient>())
+            .addCallAdapterFactory(get())
+            .addConverterFactory(get())
+            .build()
     }
 
     single<Retrofit>(named("auth")) {
         Retrofit.Builder()
-                .baseUrl("https://github.com")
-                .addCallAdapterFactory(get())
-                .addConverterFactory(get())
-                .build()
+            .baseUrl("https://github.com")
+            .addCallAdapterFactory(get())
+            .addConverterFactory(get())
+            .build()
     }
 
     single(named("api")) {

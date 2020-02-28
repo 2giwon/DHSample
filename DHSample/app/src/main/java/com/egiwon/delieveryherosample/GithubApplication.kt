@@ -15,11 +15,11 @@ class GithubApplication : Application() {
             androidLogger()
             androidContext(this@GithubApplication)
             modules(
-                    listOf(
-                            viewModelModule,
-                            dataSourceModule,
-                            networkModule
-                    )
+                listOf(
+                    viewModelModule,
+                    dataSourceModule,
+                    networkModule
+                )
             )
         }
     }

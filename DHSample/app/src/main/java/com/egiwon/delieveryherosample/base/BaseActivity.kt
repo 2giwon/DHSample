@@ -9,7 +9,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 
 abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
-        @LayoutRes private val layoutResId: Int
+    @LayoutRes private val layoutResId: Int
 ) : AppCompatActivity(layoutResId) {
 
     protected abstract val viewModel: VM

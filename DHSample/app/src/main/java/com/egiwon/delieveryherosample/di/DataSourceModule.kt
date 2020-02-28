@@ -15,8 +15,8 @@ import org.koin.dsl.module
 val dataSourceModule = module {
     single {
         Room.databaseBuilder(
-                androidApplication(),
-                GithubDataBase::class.java, GithubDataBase.DB_NAME
+            androidApplication(),
+            GithubDataBase::class.java, GithubDataBase.DB_NAME
         ).build()
     }
 
@@ -24,8 +24,8 @@ val dataSourceModule = module {
     single<GithubLocalDataSource> { GithubLocalDataSourceImpl(get()) }
     single<GithubRemoteDataSource> {
         GithubRemoteDataSourceImpl(
-                get(named("api")),
-                get(named("auth"))
+            get(named("api")),
+            get(named("auth"))
         )
     }
     single<GithubRepository> { GithubRepositoryImpl(get(), get()) }

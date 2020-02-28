@@ -10,13 +10,13 @@ interface TabTitleProvider {
 }
 
 fun TabLayout.setupWithViewPager2(
-        viewPager2: ViewPager2,
-        titleProvider: TabTitleProvider,
-        autoRefresh: Boolean
+    viewPager2: ViewPager2,
+    titleProvider: TabTitleProvider,
+    autoRefresh: Boolean
 ) {
     TabLayoutMediator(this, viewPager2, autoRefresh,
-            TabLayoutMediator.TabConfigurationStrategy { tab, position ->
-                tab.text = titleProvider.getItemTitle(position)
-            }
+        TabLayoutMediator.TabConfigurationStrategy { tab, position ->
+            tab.text = titleProvider.getItemTitle(position)
+        }
     ).attach()
 }

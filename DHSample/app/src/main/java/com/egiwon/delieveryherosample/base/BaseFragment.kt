@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 
 abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
-        @LayoutRes private val layoutResId: Int
+    @LayoutRes private val layoutResId: Int
 ) : Fragment() {
 
     protected abstract val viewModel: VM
@@ -23,9 +23,9 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     abstract val title: String
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, layoutResId, container, false)
         binding.lifecycleOwner = viewLifecycleOwner

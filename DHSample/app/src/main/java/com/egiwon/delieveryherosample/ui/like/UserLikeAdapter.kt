@@ -2,19 +2,19 @@ package com.egiwon.delieveryherosample.ui.like
 
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import com.egiwon.delieveryherosample.ui.GithubSharedViewModel
 import com.egiwon.delieveryherosample.R
 import com.egiwon.delieveryherosample.base.BaseRecyclerView
 import com.egiwon.delieveryherosample.data.User
 import com.egiwon.delieveryherosample.databinding.ItemGithubUserBinding
+import com.egiwon.delieveryherosample.ui.GithubSharedViewModel
 
 class UserLikeAdapter(
-        private val viewModel: GithubSharedViewModel,
-        @LayoutRes private val layoutResId: Int = R.layout.item_github_user
+    private val viewModel: GithubSharedViewModel,
+    @LayoutRes private val layoutResId: Int = R.layout.item_github_user
 ) : BaseRecyclerView.Adapter<User, ItemGithubUserBinding>(layoutResId) {
     override fun onCreateViewHolder(
-            parent: ViewGroup,
-            viewType: Int
+        parent: ViewGroup,
+        viewType: Int
     ): BaseRecyclerView.BaseViewHolder<ItemGithubUserBinding> = UserLikeViewHolder(parent)
 
     val onRemoveUnlikeUser: (User) -> Unit = {
@@ -23,7 +23,7 @@ class UserLikeAdapter(
     }
 
     inner class UserLikeViewHolder(
-            parent: ViewGroup
+        parent: ViewGroup
     ) : BaseRecyclerView.BaseViewHolder<ItemGithubUserBinding>(parent, layoutResId) {
 
         init {

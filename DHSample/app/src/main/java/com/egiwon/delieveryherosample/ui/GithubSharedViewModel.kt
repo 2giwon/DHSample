@@ -10,7 +10,7 @@ import com.egiwon.delieveryherosample.data.source.GithubRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 class GithubSharedViewModel(
-        private val githubRepository: GithubRepository
+    private val githubRepository: GithubRepository
 ) : BaseViewModel() {
 
     private val _likeUsers = MutableLiveData<List<User>>()
@@ -50,57 +50,57 @@ class GithubSharedViewModel(
             _searchUserResultList.value = emptyList()
         } else {
             githubRepository.searchUserInfo(query)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnSubscribe {
-                        _isShowLoadingProgressBar.value = true
-                    }
-                    .doAfterTerminate {
-                        _isShowLoadingProgressBar.value = false
-                    }
-                    .subscribe({ response ->
-                        _searchUserResultList.value = response.users
-                    }, { throwable ->
-                        throwable.message?.let { message ->
-                            if (message.contains("403")) {
-                                mutableErrorTextResId.value = R.string.error_rate_limit
-                            } else {
-                                mutableErrorTextResId.value = R.string.error_load_fail
-                            }
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe {
+                    _isShowLoadingProgressBar.value = true
+                }
+                .doAfterTerminate {
+                    _isShowLoadingProgressBar.value = false
+                }
+                .subscribe({ response ->
+                    _searchUserResultList.value = response.users
+                }, { throwable ->
+                    throwable.message?.let { message ->
+                        if (message.contains("403")) {
+                            mutableErrorTextResId.value = R.string.error_rate_limit
+                        } else {
+                            mutableErrorTextResId.value = R.string.error_load_fail
                         }
+                    }
 
-                    }).addDisposable()
+                }).addDisposable()
         }
     }
 
     private fun searchLikeUsers(query: String) =
-            if (query.isEmpty()) {
-                getLikeUser()
-            } else {
-                githubRepository.searchLikeUsers(query)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe {
-                            _likeUsers.value = it
-                        }.addDisposable()
-            }
+        if (query.isEmpty()) {
+            getLikeUser()
+        } else {
+            githubRepository.searchLikeUsers(query)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    _likeUsers.value = it
+                }.addDisposable()
+        }
 
 
     fun saveOrRemoveChangedLikeUser(user: User) =
-            if (user.like) {
-                githubRepository.setLikeUser(user)
-            } else {
-                _unLikeUser.value = user
-                _removedUser.value = user
-                githubRepository.removeLikeUser(user)
-            }.observeOn(AndroidSchedulers.mainThread())
-                    .subscribe()
-                    .addDisposable()
+        if (user.like) {
+            githubRepository.setLikeUser(user)
+        } else {
+            _unLikeUser.value = user
+            _removedUser.value = user
+            githubRepository.removeLikeUser(user)
+        }.observeOn(AndroidSchedulers.mainThread())
+            .subscribe()
+            .addDisposable()
 
     fun getLikeUser() = githubRepository.getLikeUser()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                _likeUsers.value = it
-            }, {
-                mutableErrorTextResId.value = R.string.error_like_user_load_fail
-            }).addDisposable()
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe({
+            _likeUsers.value = it
+        }, {
+            mutableErrorTextResId.value = R.string.error_like_user_load_fail
+        }).addDisposable()
 
 }

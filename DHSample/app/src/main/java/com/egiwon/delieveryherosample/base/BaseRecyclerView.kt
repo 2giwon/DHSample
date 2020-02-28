@@ -10,11 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 abstract class BaseRecyclerView {
 
     abstract class BaseViewHolder<B : ViewDataBinding>(
-            parent: ViewGroup,
-            @LayoutRes resourceId: Int
+        parent: ViewGroup,
+        @LayoutRes resourceId: Int
     ) : RecyclerView.ViewHolder(
-            LayoutInflater.from(parent.context)
-                    .inflate(resourceId, parent, false)
+        LayoutInflater.from(parent.context)
+            .inflate(resourceId, parent, false)
     ) {
         protected val binding: B = DataBindingUtil.bind(itemView)!!
 
@@ -27,15 +27,15 @@ abstract class BaseRecyclerView {
     }
 
     abstract class Adapter<A : Any, B : ViewDataBinding>(
-            @LayoutRes private val layoutResId: Int
+        @LayoutRes private val layoutResId: Int
     ) : RecyclerView.Adapter<BaseViewHolder<B>>() {
 
         private val list = mutableListOf<A>()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<B> =
-                object : BaseViewHolder<B>(parent, layoutResId) {
-                    override fun bindItem(item: Any?) = Unit
-                }
+            object : BaseViewHolder<B>(parent, layoutResId) {
+                override fun bindItem(item: Any?) = Unit
+            }
 
         override fun getItemCount(): Int = list.size
 

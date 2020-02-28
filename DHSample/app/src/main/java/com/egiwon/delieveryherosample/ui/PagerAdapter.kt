@@ -8,11 +8,11 @@ import com.egiwon.delieveryherosample.ui.like.UserLikeFragment
 import com.egiwon.delieveryherosample.ui.search.SearchUserFragment
 
 class PagerAdapter(fragmentActivity: FragmentActivity) :
-        FragmentStateAdapter(fragmentActivity), TabTitleProvider {
+    FragmentStateAdapter(fragmentActivity), TabTitleProvider {
 
     private val fragments = listOf(
-            SearchUserFragment(),
-            UserLikeFragment()
+        SearchUserFragment(),
+        UserLikeFragment()
     )
 
     override fun getItemCount(): Int = fragments.size

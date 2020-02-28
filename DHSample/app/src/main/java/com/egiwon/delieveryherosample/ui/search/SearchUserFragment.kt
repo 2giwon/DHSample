@@ -11,7 +11,7 @@ import com.egiwon.delieveryherosample.ui.Tab
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SearchUserFragment : BaseFragment<FgSearchGithubUserBinding, GithubSharedViewModel>(
-        R.layout.fg_search_github_user
+    R.layout.fg_search_github_user
 ) {
     override val title: String = Tab.API.name
 

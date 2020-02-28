@@ -4,13 +4,13 @@ import com.google.gson.annotations.SerializedName
 
 data class AccessToken(
 
-        @SerializedName("access_token")
-        val accessToken: String = "",
+    @SerializedName("access_token")
+    val accessToken: String = "",
 
-        val scope: String = "",
+    val scope: String = "",
 
-        @SerializedName("token_type")
-        val tokenType: String = ""
+    @SerializedName("token_type")
+    val tokenType: String = ""
 )
 
 object AccessTokenProvider {

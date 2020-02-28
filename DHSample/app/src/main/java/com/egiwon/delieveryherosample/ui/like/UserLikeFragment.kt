@@ -11,7 +11,7 @@ import com.egiwon.delieveryherosample.ui.Tab
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class UserLikeFragment : BaseFragment<FgGithubUserLikeBinding, GithubSharedViewModel>(
-        R.layout.fg_github_user_like
+    R.layout.fg_github_user_like
 ) {
     override val title: String = Tab.LOCAL.name
 

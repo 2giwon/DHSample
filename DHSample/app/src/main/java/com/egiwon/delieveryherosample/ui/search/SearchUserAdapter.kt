@@ -9,13 +9,13 @@ import com.egiwon.delieveryherosample.databinding.ItemGithubUserBinding
 import com.egiwon.delieveryherosample.ui.GithubSharedViewModel
 
 class SearchUserAdapter(
-        private val sharedViewModel: GithubSharedViewModel,
-        @LayoutRes private val layoutResId: Int = R.layout.item_github_user
+    private val sharedViewModel: GithubSharedViewModel,
+    @LayoutRes private val layoutResId: Int = R.layout.item_github_user
 ) : BaseRecyclerView.Adapter<User, ItemGithubUserBinding>(layoutResId) {
 
     override fun onCreateViewHolder(
-            parent: ViewGroup,
-            viewType: Int
+        parent: ViewGroup,
+        viewType: Int
     ): BaseRecyclerView.BaseViewHolder<ItemGithubUserBinding> = SearchUserViewHolder(parent)
 
     val onUnLikeUser: (User) -> Unit = {
@@ -28,7 +28,7 @@ class SearchUserAdapter(
     }
 
     inner class SearchUserViewHolder(
-            parent: ViewGroup
+        parent: ViewGroup
     ) : BaseRecyclerView.BaseViewHolder<ItemGithubUserBinding>(parent, layoutResId) {
 
         init {
