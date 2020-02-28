@@ -30,27 +30,27 @@ abstract class BaseRecyclerView {
             @LayoutRes private val layoutResId: Int
     ) : RecyclerView.Adapter<BaseViewHolder<B>>() {
 
-        private val items = mutableListOf<A>()
+        private val list = mutableListOf<A>()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<B> =
                 object : BaseViewHolder<B>(parent, layoutResId) {
                     override fun bindItem(item: Any?) = Unit
                 }
 
-        override fun getItemCount(): Int = items.size
+        override fun getItemCount(): Int = list.size
 
         override fun onBindViewHolder(holder: BaseViewHolder<B>, position: Int) =
-                holder.onBindViewHolder(items[position])
+            holder.onBindViewHolder(list[position])
 
-        protected fun getItem(position: Int): A? = items.getOrNull(position)
+        protected fun getItem(position: Int): A? = list.getOrNull(position)
 
-        protected fun removeItem(item: A) = items.remove(item)
+        protected fun removeItem(item: A) = list.remove(item)
 
         fun replaceAll(items: List<A>?) {
-            this.items.run {
-                clear()
-                items?.let {
-                    addAll(it)
+            if (items != null) {
+                list.run {
+                    clear()
+                    addAll(items)
                 }
             }
 
