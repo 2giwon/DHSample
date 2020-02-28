@@ -26,7 +26,7 @@ abstract class BaseRecyclerView {
         abstract fun bindItem(item: Any?)
     }
 
-    abstract class Adapter<A, B : ViewDataBinding>(
+    abstract class Adapter<A : Any, B : ViewDataBinding>(
             @LayoutRes private val layoutResId: Int
     ) : RecyclerView.Adapter<BaseViewHolder<B>>() {
 
