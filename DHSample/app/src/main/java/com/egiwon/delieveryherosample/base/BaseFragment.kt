@@ -34,16 +34,14 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     }
 
     protected open fun addObserve() {
-        viewModel.errorTextResId.observe(
-                viewLifecycleOwner, Observer { showToast(it) }
-        )
+        viewModel.errorTextResId.observe(viewLifecycleOwner, Observer { showToast(it) })
     }
 
     protected fun bind(action: B.() -> Unit) {
         binding.run(action)
     }
 
-    protected fun showToast(text: String) {
+    private fun showToast(text: String) {
         Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
     }
 

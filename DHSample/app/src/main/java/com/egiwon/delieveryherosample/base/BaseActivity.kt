@@ -25,16 +25,14 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
     }
 
     protected open fun addObserve() {
-        viewModel.errorTextResId.observe(
-                this, Observer { showToast(it) }
-        )
+        viewModel.errorTextResId.observe(this, Observer { showToast(it) })
     }
 
     protected fun bind(action: B.() -> Unit) {
         binding.run(action)
     }
 
-    protected fun showToast(text: String) {
+    private fun showToast(text: String) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
 
