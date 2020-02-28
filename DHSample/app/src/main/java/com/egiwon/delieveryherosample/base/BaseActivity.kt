@@ -34,11 +34,11 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
         binding.run(action)
     }
 
-    private fun showToast(text: String) {
+    protected fun showToast(text: String) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
 
-    private fun showToast(textResId: Int) {
+    protected fun showToast(textResId: Int) {
         showToast(getString(textResId))
     }
 }
