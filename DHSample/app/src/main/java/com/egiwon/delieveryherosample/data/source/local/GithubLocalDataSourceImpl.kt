@@ -5,16 +5,15 @@ import com.egiwon.delieveryherosample.data.source.local.db.GithubUserDao
 import com.egiwon.delieveryherosample.data.source.local.model.UserEntity
 import com.egiwon.delieveryherosample.data.source.local.model.mapperToUser
 import io.reactivex.Completable
-import io.reactivex.Flowable
+import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
 class GithubLocalDataSourceImpl(
     private val githubUserDao: GithubUserDao
 ) : GithubLocalDataSource {
 
-    override fun getLikeUsers(): Flowable<List<User>> =
+    override fun getLikeUsers(): Single<List<User>> =
         githubUserDao.getLikeUsers()
-            .onBackpressureBuffer()
             .map { userList -> userList.map { it.mapperToUser() } }
             .subscribeOn(Schedulers.io())
 
@@ -42,9 +41,8 @@ class GithubLocalDataSourceImpl(
         )
             .subscribeOn(Schedulers.io())
 
-    override fun searchLikeUsers(query: String): Flowable<List<User>> =
+    override fun searchLikeUsers(query: String): Single<List<User>> =
         githubUserDao.searchLikeUsers(query)
-            .onBackpressureBuffer()
             .map { userList -> userList.map { it.mapperToUser() } }
             .subscribeOn(Schedulers.io())
 

@@ -1,12 +1,10 @@
 package com.egiwon.delieveryherosample.data.source
 
-import com.egiwon.delieveryherosample.data.AccessToken
 import com.egiwon.delieveryherosample.data.User
 import com.egiwon.delieveryherosample.data.UserLikeResponse
 import com.egiwon.delieveryherosample.data.source.local.GithubLocalDataSource
 import com.egiwon.delieveryherosample.data.source.remote.GithubRemoteDataSource
 import io.reactivex.Completable
-import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 
@@ -15,20 +13,20 @@ class GithubRepositoryImpl(
     private val githubLocalDataSource: GithubLocalDataSource
 ) : GithubRepository {
 
-    override fun searchUserInfo(query: String): Flowable<UserLikeResponse> =
+    override fun searchUserInfo(query: String): Single<UserLikeResponse> =
         githubRemoteDataSource.searchGithubUser(query)
             .zipWith(
                 githubLocalDataSource.getLikeUsers(),
-                BiFunction { userResponse, likeUsers ->
-                    UserLikeResponse(
-                        userResponse.users.map { user ->
-                            likeUsers.find {
-                                user.like = (user.id == it.id)
-                                user.like
-                            } ?: user
-                        }
-                    )
+                BiFunction { response, likeUsers ->
+                    UserLikeResponse(response.users.map { user ->
+                        selectedLikeUserFromLocalLikeUser(user, likeUsers)
+                    })
                 })
+
+    private fun selectedLikeUserFromLocalLikeUser(user: User, likeUsers: List<User>): User =
+        likeUsers.find { (user.id == it.id) }
+            ?.run { User(id, avatarUrl, name, score, true) }
+            ?: user
 
     override fun setLikeUser(user: User): Completable =
         githubLocalDataSource.setLikeUser(user)
@@ -36,13 +34,11 @@ class GithubRepositoryImpl(
     override fun removeLikeUser(user: User): Completable =
         githubLocalDataSource.removeLikeUser(user)
 
-    override fun getLikeUser(): Flowable<List<User>> =
+    override fun getLikeUser(): Single<List<User>> =
         githubLocalDataSource.getLikeUsers()
 
-    override fun searchLikeUsers(query: String): Flowable<List<User>> =
+    override fun searchLikeUsers(query: String): Single<List<User>> =
         githubLocalDataSource.searchLikeUsers(query)
 
-    override fun requestAccessToken(code: String): Single<AccessToken> =
-        githubRemoteDataSource.requestAccessToken(code)
 
 }
