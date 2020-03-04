@@ -53,7 +53,7 @@ val networkModule = module {
             .build()
     }
 
-    single {
+    factory {
         get<Retrofit>().create(GithubSearchLikeService::class.java)
     }
 }
