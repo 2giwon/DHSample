@@ -7,13 +7,13 @@ import com.egiwon.delieveryherosample.data.User
 @Entity(tableName = "users")
 data class UserEntity(
     @PrimaryKey
-    val id: String,
+    val id: String = "",
 
-    val avatarUrl: String,
+    val avatarUrl: String = "",
 
-    val name: String,
+    val name: String = "",
 
-    val score: Double,
+    val score: Double = 0.0,
 
     val like: Boolean = false
 )
