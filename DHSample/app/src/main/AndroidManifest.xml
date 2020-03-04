@@ -15,7 +15,7 @@
         android:name=".GithubApplication"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.GithubActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -34,7 +34,6 @@
                     android:scheme="delhero" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.GithubActivity" />
     </application>
 
 </manifest>
