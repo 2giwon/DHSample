@@ -21,10 +21,14 @@ class UserLikeFragment : BaseFragment<FgGithubUserLikeBinding, GithubSharedViewM
         super.onViewCreated(view, savedInstanceState)
 
         bind {
-            sharedvm = viewModel
-            rvUserLike.adapter = UserLikeAdapter(viewModel)
-            rvUserLike.setHasFixedSize(true)
+            initBind()
         }
+    }
+
+    private fun FgGithubUserLikeBinding.initBind() {
+        sharedvm = viewModel
+        rvUserLike.adapter = UserLikeAdapter(viewModel)
+        rvUserLike.setHasFixedSize(true)
     }
 
     override fun addObserve() {
