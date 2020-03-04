@@ -1,13 +1,10 @@
 package com.egiwon.delieveryherosample.di
 
 import com.egiwon.delieveryherosample.BuildConfig
-import com.egiwon.delieveryherosample.data.AccessTokenProvider
-import com.egiwon.delieveryherosample.data.source.remote.AuthApiService
 import com.egiwon.delieveryherosample.data.source.remote.GithubSearchLikeService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.core.parameter.parametersOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.CallAdapter
@@ -31,7 +28,6 @@ val networkModule = module {
         chain.proceed(
             chain.request()
                 .newBuilder()
-                .addHeader("Authorization", "token " + AccessTokenProvider.token)
                 .build()
         )
     }
@@ -46,7 +42,6 @@ val networkModule = module {
     factory {
         OkHttpClient.Builder()
             .addInterceptor(get<Interceptor>())
-            .addInterceptor { get { parametersOf(it) } }
             .build()
     }
 
@@ -59,19 +54,7 @@ val networkModule = module {
             .build()
     }
 
-    single<Retrofit>(named("auth")) {
-        Retrofit.Builder()
-            .baseUrl("https://github.com")
-            .addCallAdapterFactory(get())
-            .addConverterFactory(get())
-            .build()
-    }
-
-    single(named("api")) {
+    factory(named("api")) {
         get<Retrofit>(named("api")).create(GithubSearchLikeService::class.java)
-    }
-
-    single(named("auth")) {
-        get<Retrofit>(named("auth")).create(AuthApiService::class.java)
     }
 }
