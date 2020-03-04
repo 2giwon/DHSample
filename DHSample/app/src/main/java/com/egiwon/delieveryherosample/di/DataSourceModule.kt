@@ -23,10 +23,7 @@ val dataSourceModule = module {
     single { get<GithubDataBase>().githubUserDao() }
     single<GithubLocalDataSource> { GithubLocalDataSourceImpl(get()) }
     single<GithubRemoteDataSource> {
-        GithubRemoteDataSourceImpl(
-            get(named("api")),
-            get(named("auth"))
-        )
+        GithubRemoteDataSourceImpl(get(named("api")))
     }
     single<GithubRepository> { GithubRepositoryImpl(get(), get()) }
 }
