@@ -9,7 +9,6 @@ import com.egiwon.delieveryherosample.data.source.local.db.GithubDataBase
 import com.egiwon.delieveryherosample.data.source.remote.GithubRemoteDataSource
 import com.egiwon.delieveryherosample.data.source.remote.GithubRemoteDataSourceImpl
 import org.koin.android.ext.koin.androidApplication
-import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val dataSourceModule = module {
@@ -23,7 +22,7 @@ val dataSourceModule = module {
     single { get<GithubDataBase>().githubUserDao() }
     single<GithubLocalDataSource> { GithubLocalDataSourceImpl(get()) }
     single<GithubRemoteDataSource> {
-        GithubRemoteDataSourceImpl(get(named("api")))
+        GithubRemoteDataSourceImpl(get())
     }
     single<GithubRepository> { GithubRepositoryImpl(get(), get()) }
 }

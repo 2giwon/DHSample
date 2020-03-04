@@ -5,7 +5,6 @@ import com.egiwon.delieveryherosample.data.source.remote.GithubSearchLikeService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.CallAdapter
 import retrofit2.Converter
@@ -45,7 +44,7 @@ val networkModule = module {
             .build()
     }
 
-    single<Retrofit>(named("api")) {
+    single<Retrofit> {
         Retrofit.Builder()
             .baseUrl("http://api.github.com/")
             .client(get<OkHttpClient>())
@@ -54,7 +53,7 @@ val networkModule = module {
             .build()
     }
 
-    factory(named("api")) {
-        get<Retrofit>(named("api")).create(GithubSearchLikeService::class.java)
+    single {
+        get<Retrofit>().create(GithubSearchLikeService::class.java)
     }
 }
