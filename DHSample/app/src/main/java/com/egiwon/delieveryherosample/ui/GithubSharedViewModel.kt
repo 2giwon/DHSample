@@ -8,6 +8,9 @@ import com.egiwon.delieveryherosample.base.BaseViewModel
 import com.egiwon.delieveryherosample.data.User
 import com.egiwon.delieveryherosample.data.source.GithubRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.subjects.PublishSubject
+import java.util.concurrent.TimeUnit
 
 class GithubSharedViewModel(
     private val githubRepository: GithubRepository
@@ -27,11 +30,7 @@ class GithubSharedViewModel(
 
     val searchUserLiveData: LiveData<Unit>
         get() = Transformations.map(searchQuery) {
-            if (tab.value == Tab.API) {
-                searchUsers(it)
-            } else {
-                searchLikeUsers(it)
-            }
+            searchGithubQuery(it)
         }
 
     private val tab = MutableLiveData<Tab>()
@@ -40,6 +39,21 @@ class GithubSharedViewModel(
 
     private val _isShowLoadingProgressBar = MutableLiveData<Boolean>()
     val isShowLoadingProgressBar: LiveData<Boolean> get() = _isShowLoadingProgressBar
+
+    private val querySubject = PublishSubject.create<String>()
+
+    init {
+        querySubject.debounce(1000L, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                if (tab.value == Tab.API) {
+                    searchUsers(it)
+                } else {
+                    searchLikeUsers(it)
+                }
+            }
+            .addDisposable()
+    }
 
     fun setTab(tab: Tab) {
         this.tab.value = tab
@@ -59,15 +73,8 @@ class GithubSharedViewModel(
                 }
                 .subscribe({ response ->
                     _searchUserResultList.value = response.users
-                }, { throwable ->
-                    throwable.message?.let { message ->
-                        if (message.contains("403")) {
-                            mutableErrorTextResId.value = R.string.error_rate_limit
-                        } else {
-                            mutableErrorTextResId.value = R.string.error_load_fail
-                        }
-                    }
-
+                }, {
+                    mutableErrorTextResId.value = R.string.error_load_fail
                 }).addDisposable()
         }
     }
@@ -78,9 +85,8 @@ class GithubSharedViewModel(
         } else {
             githubRepository.searchLikeUsers(query)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    _likeUsers.value = it
-                }.addDisposable()
+                .subscribeBy { _likeUsers.value = it }
+                .addDisposable()
         }
 
 
@@ -103,4 +109,7 @@ class GithubSharedViewModel(
             mutableErrorTextResId.value = R.string.error_like_user_load_fail
         }).addDisposable()
 
+    private fun searchGithubQuery(query: String) {
+        querySubject.onNext(query)
+    }
 }
