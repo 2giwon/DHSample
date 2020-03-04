@@ -28,7 +28,7 @@ class GithubRepositoryImpl(
             ?.run { User(id, avatarUrl, name, score, true) }
             ?: user
 
-    override fun setLikeUser(user: User): Completable =
+    override fun addLikeUser(user: User): Completable =
         githubLocalDataSource.setLikeUser(user)
 
     override fun removeLikeUser(user: User): Completable =

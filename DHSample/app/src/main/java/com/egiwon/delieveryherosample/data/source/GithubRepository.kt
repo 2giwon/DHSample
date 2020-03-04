@@ -8,7 +8,7 @@ import io.reactivex.Single
 interface GithubRepository {
     fun searchUserInfo(query: String): Single<UserLikeResponse>
 
-    fun setLikeUser(user: User): Completable
+    fun addLikeUser(user: User): Completable
 
     fun removeLikeUser(user: User): Completable
 
