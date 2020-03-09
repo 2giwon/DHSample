@@ -92,7 +92,7 @@ class GithubSharedViewModel(
 
     fun saveOrRemoveChangedLikeUser(user: User) =
         if (user.like) {
-            githubRepository.setLikeUser(user)
+            githubRepository.addLikeUser(user)
         } else {
             _unLikeUser.value = user
             _removedUser.value = user
