@@ -8,7 +8,7 @@ import com.bumptech.glide.request.RequestOptions
 
 @BindingAdapter("loadUrl")
 fun ImageView.loadUrl(url: String) {
-    Glide.with(context)
+    Glide.with(this)
         .load(url)
         .transition(DrawableTransitionOptions.withCrossFade())
         .apply(RequestOptions.circleCropTransform())
