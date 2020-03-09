@@ -1,0 +1,25 @@
+def keysPropertiesFile = rootProject.file("key.properties")
+def keysProperties = new Properties()
+keysProperties.load(new FileInputStream(keysPropertiesFile))
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        debug {
+            buildConfigField 'String', "GithubClientId", keysProperties['GithubClientId']
+            buildConfigField 'String', "GithubClientSecret", keysProperties['GithubClientSecret']
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
