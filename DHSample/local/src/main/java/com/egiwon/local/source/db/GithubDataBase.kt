@@ -1,8 +1,8 @@
-package com.egiwon.delieveryherosample.data.source.local.db
+package com.egiwon.local.source.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.egiwon.delieveryherosample.data.source.local.model.UserEntity
+import com.egiwon.local.source.model.UserEntity
 
 @Database(
     entities = [UserEntity::class],

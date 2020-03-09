@@ -1,7 +1,7 @@
-package com.egiwon.delieveryherosample.data.source.local.db
+package com.egiwon.local.source.db
 
 import androidx.room.*
-import com.egiwon.delieveryherosample.data.source.local.model.UserEntity
+import com.egiwon.local.source.model.UserEntity
 import io.reactivex.Completable
 import io.reactivex.Single
 

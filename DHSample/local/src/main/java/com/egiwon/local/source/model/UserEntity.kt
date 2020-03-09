@@ -1,8 +1,9 @@
-package com.egiwon.delieveryherosample.data.source.local.model
+package com.egiwon.local.source.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.egiwon.delieveryherosample.data.User
+import com.egiwon.repository.model.DomainEntity
+import com.egiwon.repository.model.UserDomainEntity
 
 @Entity(tableName = "users")
 data class UserEntity(
@@ -16,10 +17,10 @@ data class UserEntity(
     val score: Double = 0.0,
 
     val like: Boolean = false
-)
+) : LocalEntity
 
-fun UserEntity.mapperToUser(): User =
-    User(
+fun UserEntity.mapperToUser(): DomainEntity =
+    UserDomainEntity(
         id = id,
         avatarUrl = avatarUrl,
         name = name,
