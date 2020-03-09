@@ -11,5 +11,6 @@ class GithubRemoteDataSourceImpl(
     override fun searchGithubUser(query: String): Single<UserLikeResponse> =
         service.getUserInfo(query)
             .subscribeOn(Schedulers.io())
+            .retry(1)
 
 }

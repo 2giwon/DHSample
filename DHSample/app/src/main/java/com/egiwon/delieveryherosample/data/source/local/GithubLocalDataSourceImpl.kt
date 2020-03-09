@@ -26,8 +26,7 @@ class GithubLocalDataSourceImpl(
                 user.score,
                 user.like
             )
-        )
-            .subscribeOn(Schedulers.io())
+        ).subscribeOn(Schedulers.io())
 
     override fun removeLikeUser(user: User): Completable =
         githubUserDao.removeLikeUser(
@@ -38,8 +37,7 @@ class GithubLocalDataSourceImpl(
                 user.score,
                 user.like
             )
-        )
-            .subscribeOn(Schedulers.io())
+        ).subscribeOn(Schedulers.io())
 
     override fun searchLikeUsers(query: String): Single<List<User>> =
         githubUserDao.searchLikeUsers(query)
