@@ -1,7 +1,7 @@
-package com.egiwon.delieveryherosample.di
+package com.egiwon.remote.di
 
-import com.egiwon.delieveryherosample.BuildConfig
-import com.egiwon.delieveryherosample.data.source.remote.GithubSearchLikeService
+import com.egiwon.remote.BuildConfig
+import com.egiwon.remote.service.GithubSearchLikeService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
