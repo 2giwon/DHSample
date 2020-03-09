@@ -10,35 +10,33 @@ import com.egiwon.delieveryherosample.ui.GithubSharedViewModel
 
 class SearchUserAdapter(
     private val sharedViewModel: GithubSharedViewModel,
-    @LayoutRes private val layoutResId: Int = R.layout.item_github_user
-) : BaseRecyclerView.Adapter<User, ItemGithubUserBinding>(layoutResId) {
+    @LayoutRes private val layoutResId: Int = R.layout.item_github_user,
+    private val bindingId: Int
+) : BaseRecyclerView.Adapter<User, ItemGithubUserBinding>(layoutResId, bindingId) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): BaseRecyclerView.BaseViewHolder<ItemGithubUserBinding> = SearchUserViewHolder(parent)
+    ): BaseRecyclerView.BaseViewHolder<ItemGithubUserBinding> =
+        SearchUserViewHolder(parent, bindingId)
 
     val onUnLikeUser: (User) -> Unit = {
         for (index in 0 until itemCount) {
             if (getItem(index)?.id == it.id) {
-                getItem(index)?.like = false
+                replaceItem(it, index)
             }
         }
         notifyDataSetChanged()
     }
 
     inner class SearchUserViewHolder(
-        parent: ViewGroup
-    ) : BaseRecyclerView.BaseViewHolder<ItemGithubUserBinding>(parent, layoutResId) {
+        parent: ViewGroup,
+        private val bindingId: Int
+    ) : BaseRecyclerView.BaseViewHolder<ItemGithubUserBinding>(parent, layoutResId, bindingId) {
 
         init {
             binding.sharedVm = sharedViewModel
         }
 
-        override fun bindItem(item: Any?) {
-            (item as? User)?.let {
-                binding.user = it
-            }
-        }
     }
 }

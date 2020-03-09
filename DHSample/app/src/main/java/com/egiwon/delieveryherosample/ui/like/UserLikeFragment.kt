@@ -3,6 +3,7 @@ package com.egiwon.delieveryherosample.ui.like
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import com.egiwon.delieveryherosample.BR
 import com.egiwon.delieveryherosample.R
 import com.egiwon.delieveryherosample.base.BaseFragment
 import com.egiwon.delieveryherosample.databinding.FgGithubUserLikeBinding
@@ -19,15 +20,12 @@ class UserLikeFragment : BaseFragment<FgGithubUserLikeBinding, GithubSharedViewM
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        bind {
-            initBind()
-        }
+        bind { initBind() }
     }
 
     private fun FgGithubUserLikeBinding.initBind() {
         sharedvm = viewModel
-        rvUserLike.adapter = UserLikeAdapter(viewModel)
+        rvUserLike.adapter = UserLikeAdapter(viewModel, bindingId = BR.user)
         rvUserLike.setHasFixedSize(true)
     }
 

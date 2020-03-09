@@ -3,6 +3,7 @@ package com.egiwon.delieveryherosample.ui.search
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import com.egiwon.delieveryherosample.BR
 import com.egiwon.delieveryherosample.R
 import com.egiwon.delieveryherosample.base.BaseFragment
 import com.egiwon.delieveryherosample.databinding.FgSearchGithubUserBinding
@@ -22,7 +23,7 @@ class SearchUserFragment : BaseFragment<FgSearchGithubUserBinding, GithubSharedV
 
         bind {
             sharedVm = viewModel
-            rvSearchResultUsers.adapter = SearchUserAdapter(viewModel)
+            rvSearchResultUsers.adapter = SearchUserAdapter(viewModel, bindingId = BR.user)
             rvSearchResultUsers.setHasFixedSize(true)
         }
     }

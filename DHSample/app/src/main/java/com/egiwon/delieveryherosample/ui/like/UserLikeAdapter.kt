@@ -10,8 +10,10 @@ import com.egiwon.delieveryherosample.ui.GithubSharedViewModel
 
 class UserLikeAdapter(
     private val viewModel: GithubSharedViewModel,
-    @LayoutRes private val layoutResId: Int = R.layout.item_github_user
-) : BaseRecyclerView.Adapter<User, ItemGithubUserBinding>(layoutResId) {
+    @LayoutRes private val layoutResId: Int = R.layout.item_github_user,
+    private val bindingId: Int
+) : BaseRecyclerView.Adapter<User, ItemGithubUserBinding>(layoutResId, bindingId) {
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -24,17 +26,10 @@ class UserLikeAdapter(
 
     inner class UserLikeViewHolder(
         parent: ViewGroup
-    ) : BaseRecyclerView.BaseViewHolder<ItemGithubUserBinding>(parent, layoutResId) {
+    ) : BaseRecyclerView.BaseViewHolder<ItemGithubUserBinding>(parent, layoutResId, bindingId) {
 
         init {
             binding.sharedVm = viewModel
         }
-
-        override fun bindItem(item: Any?) {
-            (item as? User)?.let {
-                binding.user = it
-            }
-        }
-
     }
 }
