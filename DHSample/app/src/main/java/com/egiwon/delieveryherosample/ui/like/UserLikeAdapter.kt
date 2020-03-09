@@ -4,9 +4,9 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import com.egiwon.delieveryherosample.R
 import com.egiwon.delieveryherosample.base.BaseRecyclerView
-import com.egiwon.delieveryherosample.data.User
 import com.egiwon.delieveryherosample.databinding.ItemGithubUserBinding
 import com.egiwon.delieveryherosample.ui.GithubSharedViewModel
+import com.egiwon.delieveryherosample.ui.model.User
 
 class UserLikeAdapter(
     private val viewModel: GithubSharedViewModel,

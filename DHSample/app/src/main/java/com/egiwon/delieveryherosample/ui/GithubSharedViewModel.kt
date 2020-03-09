@@ -5,8 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.egiwon.delieveryherosample.R
 import com.egiwon.delieveryherosample.base.BaseViewModel
-import com.egiwon.delieveryherosample.data.User
-import com.egiwon.delieveryherosample.data.source.GithubRepository
+import com.egiwon.delieveryherosample.ui.model.User
+import com.egiwon.delieveryherosample.ui.model.mapToDomainUser
+import com.egiwon.delieveryherosample.ui.model.mapToUser
+import com.egiwon.repository.GithubRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.PublishSubject
@@ -71,8 +73,8 @@ class GithubSharedViewModel(
                 .doAfterTerminate {
                     _isShowLoadingProgressBar.value = false
                 }
-                .subscribe({ response ->
-                    _searchUserResultList.value = response.users
+                .subscribe({ list ->
+                    _searchUserResultList.value = list.map { it.mapToUser() }
                 }, {
                     mutableErrorTextResId.value = R.string.error_load_fail
                 }).addDisposable()
@@ -85,26 +87,28 @@ class GithubSharedViewModel(
         } else {
             githubRepository.searchLikeUsers(query)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy { _likeUsers.value = it }
+                .subscribeBy { domainList ->
+                    _likeUsers.value = domainList.map { it.mapToUser() }
+                }
                 .addDisposable()
         }
 
 
     fun saveOrRemoveChangedLikeUser(user: User) =
         if (user.like) {
-            githubRepository.addLikeUser(user)
+            githubRepository.addLikeUser(user.mapToDomainUser())
         } else {
             _unLikeUser.value = user
             _removedUser.value = user
-            githubRepository.removeLikeUser(user)
+            githubRepository.removeLikeUser(user.mapToDomainUser())
         }.observeOn(AndroidSchedulers.mainThread())
             .subscribe()
             .addDisposable()
 
     fun getLikeUser() = githubRepository.getLikeUser()
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({
-            _likeUsers.value = it
+        .subscribe({ list ->
+            _likeUsers.value = list.map { it.mapToUser() }
         }, {
             mutableErrorTextResId.value = R.string.error_like_user_load_fail
         }).addDisposable()

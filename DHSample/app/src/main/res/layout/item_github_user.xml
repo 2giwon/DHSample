@@ -10,7 +10,7 @@
 
         <variable
             name="user"
-            type="com.egiwon.delieveryherosample.data.User" />
+            type="com.egiwon.delieveryherosample.ui.model.User" />
 
         <variable
             name="sharedVm"

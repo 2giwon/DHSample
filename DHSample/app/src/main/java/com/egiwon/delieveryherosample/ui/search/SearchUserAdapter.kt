@@ -4,9 +4,9 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import com.egiwon.delieveryherosample.R
 import com.egiwon.delieveryherosample.base.BaseRecyclerView
-import com.egiwon.delieveryherosample.data.User
 import com.egiwon.delieveryherosample.databinding.ItemGithubUserBinding
 import com.egiwon.delieveryherosample.ui.GithubSharedViewModel
+import com.egiwon.delieveryherosample.ui.model.User
 
 class SearchUserAdapter(
     private val sharedViewModel: GithubSharedViewModel,
@@ -31,7 +31,7 @@ class SearchUserAdapter(
 
     inner class SearchUserViewHolder(
         parent: ViewGroup,
-        private val bindingId: Int
+        bindingId: Int
     ) : BaseRecyclerView.BaseViewHolder<ItemGithubUserBinding>(parent, layoutResId, bindingId) {
 
         init {
