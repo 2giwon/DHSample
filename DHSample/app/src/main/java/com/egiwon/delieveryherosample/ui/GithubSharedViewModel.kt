@@ -2,7 +2,6 @@ package com.egiwon.delieveryherosample.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import com.egiwon.delieveryherosample.R
 import com.egiwon.delieveryherosample.base.BaseViewModel
 import com.egiwon.delieveryherosample.ui.model.User
@@ -10,9 +9,9 @@ import com.egiwon.delieveryherosample.ui.model.mapToDomainUser
 import com.egiwon.delieveryherosample.ui.model.mapToUser
 import com.egiwon.repository.GithubRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.PublishSubject
-import java.util.concurrent.TimeUnit
 
 class GithubSharedViewModel(
     private val githubRepository: GithubRepository
@@ -30,11 +29,6 @@ class GithubSharedViewModel(
     private val _searchUserResultList = MutableLiveData<List<User>>()
     val searchUserResultList: LiveData<List<User>> get() = _searchUserResultList
 
-    val searchUserLiveData: LiveData<Unit>
-        get() = Transformations.map(searchQuery) {
-            searchGithubQuery(it)
-        }
-
     private val tab = MutableLiveData<Tab>()
 
     val searchQuery = MutableLiveData<String>()
@@ -45,7 +39,7 @@ class GithubSharedViewModel(
     private val querySubject = PublishSubject.create<String>()
 
     init {
-        querySubject.debounce(1000L, TimeUnit.MILLISECONDS)
+        querySubject
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 if (tab.value == Tab.API) {
@@ -54,7 +48,7 @@ class GithubSharedViewModel(
                     searchLikeUsers(it)
                 }
             }
-            .addDisposable()
+            .addTo(compositeDisposable)
     }
 
     fun setTab(tab: Tab) {
@@ -73,11 +67,15 @@ class GithubSharedViewModel(
                 .doAfterTerminate {
                     _isShowLoadingProgressBar.value = false
                 }
-                .subscribe({ list ->
-                    _searchUserResultList.value = list.map { it.mapToUser() }
-                }, {
-                    mutableErrorTextResId.value = R.string.error_load_fail
-                }).addDisposable()
+                .subscribeBy(
+                    onSuccess = { list ->
+                        _searchUserResultList.value = list.map { it.mapToUser() }
+                    },
+                    onError = {
+                        mutableErrorTextResId.value = R.string.error_load_fail
+                    }
+                )
+                .addTo(compositeDisposable)
         }
     }
 
@@ -90,30 +88,29 @@ class GithubSharedViewModel(
                 .subscribeBy { domainList ->
                     _likeUsers.value = domainList.map { it.mapToUser() }
                 }
-                .addDisposable()
+                .addTo(compositeDisposable)
         }
 
-
     fun saveOrRemoveChangedLikeUser(user: User) =
-        if (user.like) {
-            githubRepository.addLikeUser(user.mapToDomainUser())
+        if (!user.like) {
+            githubRepository.addLikeUser(user.copy(like = true).mapToDomainUser())
         } else {
             _unLikeUser.value = user
             _removedUser.value = user
             githubRepository.removeLikeUser(user.mapToDomainUser())
         }.observeOn(AndroidSchedulers.mainThread())
             .subscribe()
-            .addDisposable()
+            .addTo(compositeDisposable)
 
     fun getLikeUser() = githubRepository.getLikeUser()
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({ list ->
-            _likeUsers.value = list.map { it.mapToUser() }
-        }, {
-            mutableErrorTextResId.value = R.string.error_like_user_load_fail
-        }).addDisposable()
+        .subscribeBy(
+            onSuccess = { list -> _likeUsers.value = list.map { it.mapToUser() } },
+            onError = { mutableErrorTextResId.value = R.string.error_like_user_load_fail }
+        )
+        .addTo(compositeDisposable)
 
-    private fun searchGithubQuery(query: String) {
+    fun searchGithubQuery(query: String) {
         querySubject.onNext(query)
     }
 }
