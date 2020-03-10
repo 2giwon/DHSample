@@ -23,7 +23,7 @@ class SearchUserAdapter(
     val onUnLikeUser: (User) -> Unit = {
         for (index in 0 until itemCount) {
             if (getItem(index)?.id == it.id) {
-                replaceItem(it, index)
+                replaceItem(it.copy(like = false), index)
             }
         }
         notifyDataSetChanged()

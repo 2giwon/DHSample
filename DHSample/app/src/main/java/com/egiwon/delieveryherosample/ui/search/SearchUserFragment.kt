@@ -35,7 +35,6 @@ class SearchUserFragment : BaseFragment<FgSearchGithubUserBinding, GithubSharedV
                 onUnLikeUser(user)
             }
         })
-
-        viewModel.searchUserLiveData.observe(viewLifecycleOwner, Observer {})
     }
+
 }

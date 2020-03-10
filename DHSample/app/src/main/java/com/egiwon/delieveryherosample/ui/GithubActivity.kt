@@ -6,7 +6,12 @@ import com.egiwon.delieveryherosample.R
 import com.egiwon.delieveryherosample.base.BaseActivity
 import com.egiwon.delieveryherosample.databinding.ActivityGithubBinding
 import com.egiwon.delieveryherosample.ext.setupWithViewPager2
+import com.jakewharton.rxbinding3.widget.textChanges
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxkotlin.subscribeBy
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.concurrent.TimeUnit
 
 
 class GithubActivity : BaseActivity<ActivityGithubBinding, GithubSharedViewModel>(
@@ -32,7 +37,20 @@ class GithubActivity : BaseActivity<ActivityGithubBinding, GithubSharedViewModel
             })
 
             tlSearch.setupWithViewPager2(vpSearch, titleProvider = adapter, autoRefresh = true)
-
+            bindRx()
         }
+    }
+
+    private fun bindRx() {
+        binding.etSearch
+            .textChanges()
+            .debounce(700, TimeUnit.MILLISECONDS)
+            .filter(CharSequence::isNotBlank)
+            .map(CharSequence::trim)
+            .map(CharSequence::toString)
+            .distinctUntilChanged()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy { viewModel.searchGithubQuery(it) }
+            .addTo(compositeDisposable)
     }
 }
