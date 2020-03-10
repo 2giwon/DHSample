@@ -99,7 +99,7 @@ class GithubSharedViewModel(
             _removedUser.value = user
             githubRepository.removeLikeUser(user.mapToDomainUser())
         }.observeOn(AndroidSchedulers.mainThread())
-            .subscribe()
+            .subscribe { getLikeUser() }
             .addTo(compositeDisposable)
 
     fun getLikeUser() = githubRepository.getLikeUser()

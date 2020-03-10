@@ -21,6 +21,7 @@ class UserLikeFragment : BaseFragment<FgGithubUserLikeBinding, GithubSharedViewM
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bind { initBind() }
+        viewModel.getLikeUser()
     }
 
     private fun FgGithubUserLikeBinding.initBind() {
@@ -36,10 +37,5 @@ class UserLikeFragment : BaseFragment<FgGithubUserLikeBinding, GithubSharedViewM
                 onRemoveUnlikeUser(it)
             }
         })
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getLikeUser()
     }
 }
