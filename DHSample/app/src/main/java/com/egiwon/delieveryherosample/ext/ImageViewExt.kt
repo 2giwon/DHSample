@@ -2,15 +2,7 @@ package com.egiwon.delieveryherosample.ext
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestOptions
+import com.egiwon.delieveryherosample.wrapper.GlideWrapper
 
 @BindingAdapter("loadUrl")
-fun ImageView.loadUrl(url: String) {
-    Glide.with(this)
-        .load(url)
-        .transition(DrawableTransitionOptions.withCrossFade())
-        .apply(RequestOptions.circleCropTransform())
-        .into(this)
-}
+fun ImageView.loadUrl(url: String) = GlideWrapper.asyncLoadImage(this, url)
