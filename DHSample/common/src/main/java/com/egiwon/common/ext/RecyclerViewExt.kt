@@ -1,8 +1,8 @@
-package com.egiwon.delieveryherosample.ext
+package com.egiwon.common.ext
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.egiwon.delieveryherosample.base.BaseRecyclerView
+import com.egiwon.common.base.BaseRecyclerView
 
 @Suppress("UNCHECKED_CAST")
 @BindingAdapter("replaceItems")

@@ -1,4 +1,4 @@
-package com.egiwon.delieveryherosample.ext
+package com.egiwon.common.ext
 
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout

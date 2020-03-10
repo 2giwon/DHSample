@@ -7,10 +7,16 @@ apply plugin: 'kotlin-kapt'
 apply from: "$rootDir/android_commons.gradle"
 apply from: "$rootDir/android_features.gradle"
 
+android {
+    dataBinding {
+        enabled = true
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-    implementation project(":repository")
-    implementation project(":common")
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }

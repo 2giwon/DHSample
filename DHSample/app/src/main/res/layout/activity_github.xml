@@ -32,6 +32,7 @@
                 android:inputType="text"
                 android:text="@={vm.searchQuery}"
                 android:textSize="20sp" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Tab -->

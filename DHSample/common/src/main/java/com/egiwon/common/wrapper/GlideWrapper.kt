@@ -1,4 +1,4 @@
-package com.egiwon.delieveryherosample.wrapper
+package com.egiwon.common.wrapper
 
 import android.widget.ImageView
 import com.bumptech.glide.Glide

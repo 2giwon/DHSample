@@ -2,8 +2,8 @@ package com.egiwon.delieveryherosample.ui.like
 
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import com.egiwon.common.base.BaseRecyclerView
 import com.egiwon.delieveryherosample.R
-import com.egiwon.delieveryherosample.base.BaseRecyclerView
 import com.egiwon.delieveryherosample.databinding.ItemGithubUserBinding
 import com.egiwon.delieveryherosample.ui.GithubSharedViewModel
 import com.egiwon.delieveryherosample.ui.model.User

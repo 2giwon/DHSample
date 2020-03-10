@@ -1,5 +1,6 @@
 package com.egiwon.local.impl
 
+import com.egiwon.common.wrapper.SchedulersExt.ioThreadSchedulers
 import com.egiwon.local.source.db.GithubUserDao
 import com.egiwon.local.source.model.UserEntity
 import com.egiwon.local.source.model.mapperToUser
@@ -7,7 +8,6 @@ import com.egiwon.repository.GithubLocalDataSource
 import com.egiwon.repository.model.UserDomainEntity
 import io.reactivex.Completable
 import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
 
 class GithubLocalDataSourceImpl(
     private val githubUserDao: GithubUserDao
@@ -16,7 +16,7 @@ class GithubLocalDataSourceImpl(
     override fun getLikeUsers(): Single<List<UserDomainEntity>> =
         githubUserDao.getLikeUsers()
             .map { userList -> userList.map { it.mapperToUser() as UserDomainEntity } }
-            .subscribeOn(Schedulers.io())
+            .subscribeOn(ioThreadSchedulers)
 
     override fun addLikeUser(userDomain: UserDomainEntity): Completable =
         githubUserDao.setLikeUser(
@@ -27,7 +27,7 @@ class GithubLocalDataSourceImpl(
                 userDomain.score,
                 userDomain.like
             )
-        ).subscribeOn(Schedulers.io())
+        ).subscribeOn(ioThreadSchedulers)
 
     override fun removeLikeUser(userDomain: UserDomainEntity): Completable =
         githubUserDao.removeLikeUser(
@@ -38,11 +38,11 @@ class GithubLocalDataSourceImpl(
                 userDomain.score,
                 userDomain.like
             )
-        ).subscribeOn(Schedulers.io())
+        ).subscribeOn(ioThreadSchedulers)
 
     override fun searchLikeUsers(query: String): Single<List<UserDomainEntity>> =
         githubUserDao.searchLikeUsers(query)
             .map { userList -> userList.map { it.mapperToUser() as UserDomainEntity } }
-            .subscribeOn(Schedulers.io())
+            .subscribeOn(ioThreadSchedulers)
 
 }

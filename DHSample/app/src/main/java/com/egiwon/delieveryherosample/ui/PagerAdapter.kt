@@ -3,7 +3,7 @@ package com.egiwon.delieveryherosample.ui
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.egiwon.delieveryherosample.ext.TabTitleProvider
+import com.egiwon.common.ext.TabTitleProvider
 import com.egiwon.delieveryherosample.ui.like.UserLikeFragment
 import com.egiwon.delieveryherosample.ui.search.SearchUserFragment
 

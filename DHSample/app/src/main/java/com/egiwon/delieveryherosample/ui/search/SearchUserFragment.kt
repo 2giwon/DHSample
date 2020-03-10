@@ -3,9 +3,9 @@ package com.egiwon.delieveryherosample.ui.search
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import com.egiwon.common.base.BaseFragment
 import com.egiwon.delieveryherosample.BR
 import com.egiwon.delieveryherosample.R
-import com.egiwon.delieveryherosample.base.BaseFragment
 import com.egiwon.delieveryherosample.databinding.FgSearchGithubUserBinding
 import com.egiwon.delieveryherosample.ui.GithubSharedViewModel
 import com.egiwon.delieveryherosample.ui.Tab

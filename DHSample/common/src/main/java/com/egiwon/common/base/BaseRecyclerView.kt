@@ -1,4 +1,4 @@
-package com.egiwon.delieveryherosample.base
+package com.egiwon.common.base
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

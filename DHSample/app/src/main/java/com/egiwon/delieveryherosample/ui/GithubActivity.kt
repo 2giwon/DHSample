@@ -2,12 +2,13 @@ package com.egiwon.delieveryherosample.ui
 
 import android.os.Bundle
 import androidx.viewpager2.widget.ViewPager2
+import com.egiwon.common.base.BaseActivity
+import com.egiwon.common.ext.setupWithViewPager2
+import com.egiwon.common.wrapper.SchedulersExt.mainThreadSchedulers
 import com.egiwon.delieveryherosample.R
-import com.egiwon.delieveryherosample.base.BaseActivity
 import com.egiwon.delieveryherosample.databinding.ActivityGithubBinding
-import com.egiwon.delieveryherosample.ext.setupWithViewPager2
 import com.jakewharton.rxbinding3.widget.textChanges
-import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -45,12 +46,15 @@ class GithubActivity : BaseActivity<ActivityGithubBinding, GithubSharedViewModel
         binding.etSearch
             .textChanges()
             .debounce(700, TimeUnit.MILLISECONDS)
-            .filter(CharSequence::isNotBlank)
-            .map(CharSequence::trim)
-            .map(CharSequence::toString)
-            .distinctUntilChanged()
-            .observeOn(AndroidSchedulers.mainThread())
+            .textFilter()
+            .observeOn(mainThreadSchedulers)
             .subscribeBy { viewModel.searchGithubQuery(it) }
             .addTo(compositeDisposable)
     }
+
+    private fun Observable<CharSequence>.textFilter(): Observable<String> =
+        filter(CharSequence::isNotBlank)
+            .map(CharSequence::trim)
+            .map(CharSequence::toString)
+            .distinctUntilChanged()
 }
