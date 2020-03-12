@@ -9,9 +9,10 @@ import com.egiwon.delieveryherosample.ui.model.User
 import com.egiwon.delieveryherosample.ui.model.mapToDomainUser
 import com.egiwon.delieveryherosample.ui.model.mapToUser
 import com.egiwon.repository.GithubRepository
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.subjects.PublishSubject
 
 class GithubSharedViewModel(
     private val githubRepository: GithubRepository
@@ -35,21 +36,6 @@ class GithubSharedViewModel(
 
     private val _isShowLoadingProgressBar = MutableLiveData<Boolean>()
     val isShowLoadingProgressBar: LiveData<Boolean> get() = _isShowLoadingProgressBar
-
-    private val querySubject = PublishSubject.create<String>()
-
-    init {
-        querySubject
-            .observeOn(mainThreadSchedulers)
-            .subscribe {
-                if (tab.value == Tab.API) {
-                    searchUsers(it)
-                } else {
-                    searchLikeUsers(it)
-                }
-            }
-            .addTo(compositeDisposable)
-    }
 
     fun setTab(tab: Tab) {
         this.tab.value = tab
@@ -111,6 +97,10 @@ class GithubSharedViewModel(
         .addTo(compositeDisposable)
 
     fun searchGithubQuery(query: String) {
-        querySubject.onNext(query)
+        Single.create<String> {
+            if (tab.value == Tab.API) searchUsers(query) else searchLikeUsers(query)
+        }.observeOn(AndroidSchedulers.mainThread())
+            .subscribe()
+            .addTo(compositeDisposable)
     }
 }

@@ -53,8 +53,7 @@ class GithubActivity : BaseActivity<ActivityGithubBinding, GithubSharedViewModel
     }
 
     private fun Observable<CharSequence>.textFilter(): Observable<String> =
-        filter(CharSequence::isNotBlank)
-            .map(CharSequence::trim)
+        map(CharSequence::trim)
             .map(CharSequence::toString)
             .distinctUntilChanged()
 }
