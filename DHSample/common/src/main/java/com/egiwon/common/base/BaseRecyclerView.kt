@@ -24,11 +24,7 @@ abstract class BaseRecyclerView {
             if (item == null) return
 
             binding.run {
-                setVariable(
-                    bindingId,
-                    item
-                )
-
+                setVariable(bindingId, item)
                 executePendingBindings()
             }
         }
