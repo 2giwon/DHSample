@@ -6,7 +6,7 @@
 
         <variable
             name="vm"
-            type="com.egiwon.delieveryherosample.ui.GithubSharedViewModel" />
+            type="com.egiwon.githubsample.ui.GithubSharedViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

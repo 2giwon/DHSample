@@ -1,11 +1,11 @@
-package com.egiwon.delieveryherosample.ui
+package com.egiwon.githubsample.ui
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.egiwon.common.ext.TabTitleProvider
-import com.egiwon.delieveryherosample.ui.like.UserLikeFragment
-import com.egiwon.delieveryherosample.ui.search.SearchUserFragment
+import com.egiwon.githubsample.ui.like.UserLikeFragment
+import com.egiwon.githubsample.ui.search.SearchUserFragment
 
 class PagerAdapter(fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(fragmentActivity), TabTitleProvider {

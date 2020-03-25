@@ -1,14 +1,15 @@
-package com.egiwon.delieveryherosample.ui
+package com.egiwon.githubsample.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.egiwon.common.base.BaseViewModel
 import com.egiwon.common.wrapper.SchedulersExt.mainThreadSchedulers
-import com.egiwon.delieveryherosample.R
-import com.egiwon.delieveryherosample.ui.model.User
-import com.egiwon.delieveryherosample.ui.model.mapToDomainUser
-import com.egiwon.delieveryherosample.ui.model.mapToUser
+import com.egiwon.githubsample.R
+import com.egiwon.githubsample.ui.model.User
+import com.egiwon.githubsample.ui.model.mapToDomainUser
+import com.egiwon.githubsample.ui.model.mapToUser
 import com.egiwon.repository.GithubRepository
+import com.egiwon.repository.model.UserDomainEntity
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
@@ -55,7 +56,7 @@ class GithubSharedViewModel(
                 }
                 .subscribeBy(
                     onSuccess = { list ->
-                        _searchUserResultList.value = list.map { it.mapToUser() }
+                        _searchUserResultList.value = list.map(UserDomainEntity::mapToUser)
                     },
                     onError = {
                         mutableErrorTextResId.value = R.string.error_load_fail
@@ -72,7 +73,7 @@ class GithubSharedViewModel(
             githubRepository.searchLikeUsers(query)
                 .observeOn(mainThreadSchedulers)
                 .subscribeBy { domainList ->
-                    _likeUsers.value = domainList.map { it.mapToUser() }
+                    _likeUsers.value = domainList.map(UserDomainEntity::mapToUser)
                 }
                 .addTo(compositeDisposable)
         }
@@ -91,7 +92,7 @@ class GithubSharedViewModel(
     fun getLikeUser() = githubRepository.getLikeUser()
         .observeOn(mainThreadSchedulers)
         .subscribeBy(
-            onSuccess = { list -> _likeUsers.value = list.map { it.mapToUser() } },
+            onSuccess = { list -> _likeUsers.value = list.map(UserDomainEntity::mapToUser) },
             onError = { mutableErrorTextResId.value = R.string.error_like_user_load_fail }
         )
         .addTo(compositeDisposable)

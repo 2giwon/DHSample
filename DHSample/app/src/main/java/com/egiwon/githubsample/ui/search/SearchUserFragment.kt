@@ -1,14 +1,14 @@
-package com.egiwon.delieveryherosample.ui.search
+package com.egiwon.githubsample.ui.search
 
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import com.egiwon.common.base.BaseFragment
-import com.egiwon.delieveryherosample.BR
-import com.egiwon.delieveryherosample.R
-import com.egiwon.delieveryherosample.databinding.FgSearchGithubUserBinding
-import com.egiwon.delieveryherosample.ui.GithubSharedViewModel
-import com.egiwon.delieveryherosample.ui.Tab
+import com.egiwon.githubsample.BR
+import com.egiwon.githubsample.R
+import com.egiwon.githubsample.databinding.FgSearchGithubUserBinding
+import com.egiwon.githubsample.ui.GithubSharedViewModel
+import com.egiwon.githubsample.ui.Tab
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SearchUserFragment : BaseFragment<FgSearchGithubUserBinding, GithubSharedViewModel>(

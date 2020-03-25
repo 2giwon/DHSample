@@ -1,7 +1,7 @@
-package com.egiwon.delieveryherosample
+package com.egiwon.githubsample
 
 import android.app.Application
-import com.egiwon.delieveryherosample.di.viewModelModule
+import com.egiwon.githubsample.di.viewModelModule
 import com.egiwon.local.di.localDataSourceModule
 import com.egiwon.remote.di.networkModule
 import com.egiwon.remote.di.remoteDataSourceModule

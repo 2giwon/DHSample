@@ -1,4 +1,4 @@
-package com.egiwon.delieveryherosample.ui.model
+package com.egiwon.githubsample.ui.model
 
 import com.egiwon.repository.model.UserDomainEntity
 

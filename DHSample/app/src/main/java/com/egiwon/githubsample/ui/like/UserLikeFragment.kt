@@ -1,14 +1,14 @@
-package com.egiwon.delieveryherosample.ui.like
+package com.egiwon.githubsample.ui.like
 
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import com.egiwon.common.base.BaseFragment
-import com.egiwon.delieveryherosample.BR
-import com.egiwon.delieveryherosample.R
-import com.egiwon.delieveryherosample.databinding.FgGithubUserLikeBinding
-import com.egiwon.delieveryherosample.ui.GithubSharedViewModel
-import com.egiwon.delieveryherosample.ui.Tab
+import com.egiwon.githubsample.BR
+import com.egiwon.githubsample.R
+import com.egiwon.githubsample.databinding.FgGithubUserLikeBinding
+import com.egiwon.githubsample.ui.GithubSharedViewModel
+import com.egiwon.githubsample.ui.Tab
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class UserLikeFragment : BaseFragment<FgGithubUserLikeBinding, GithubSharedViewModel>(

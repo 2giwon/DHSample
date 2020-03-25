@@ -10,11 +10,11 @@
 
         <variable
             name="user"
-            type="com.egiwon.delieveryherosample.ui.model.User" />
+            type="com.egiwon.githubsample.ui.model.User" />
 
         <variable
             name="sharedVm"
-            type="com.egiwon.delieveryherosample.ui.GithubSharedViewModel" />
+            type="com.egiwon.githubsample.ui.GithubSharedViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

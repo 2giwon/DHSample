@@ -1,12 +1,12 @@
-package com.egiwon.delieveryherosample.ui.search
+package com.egiwon.githubsample.ui.search
 
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import com.egiwon.common.base.BaseRecyclerView
-import com.egiwon.delieveryherosample.R
-import com.egiwon.delieveryherosample.databinding.ItemGithubUserBinding
-import com.egiwon.delieveryherosample.ui.GithubSharedViewModel
-import com.egiwon.delieveryherosample.ui.model.User
+import com.egiwon.githubsample.R
+import com.egiwon.githubsample.databinding.ItemGithubUserBinding
+import com.egiwon.githubsample.ui.GithubSharedViewModel
+import com.egiwon.githubsample.ui.model.User
 
 class SearchUserAdapter(
     private val sharedViewModel: GithubSharedViewModel,

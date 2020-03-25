@@ -1,12 +1,12 @@
-package com.egiwon.delieveryherosample.ui
+package com.egiwon.githubsample.ui
 
 import android.os.Bundle
 import androidx.viewpager2.widget.ViewPager2
 import com.egiwon.common.base.BaseActivity
 import com.egiwon.common.ext.setupWithViewPager2
 import com.egiwon.common.wrapper.SchedulersExt.mainThreadSchedulers
-import com.egiwon.delieveryherosample.R
-import com.egiwon.delieveryherosample.databinding.ActivityGithubBinding
+import com.egiwon.githubsample.R
+import com.egiwon.githubsample.databinding.ActivityGithubBinding
 import com.jakewharton.rxbinding3.widget.textChanges
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo

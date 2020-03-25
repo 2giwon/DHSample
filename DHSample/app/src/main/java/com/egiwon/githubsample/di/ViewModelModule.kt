@@ -1,6 +1,6 @@
-package com.egiwon.delieveryherosample.di
+package com.egiwon.githubsample.di
 
-import com.egiwon.delieveryherosample.ui.GithubSharedViewModel
+import com.egiwon.githubsample.ui.GithubSharedViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
